@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using TSM = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
 using TSS = Tekla.Structures.Solid;
-using ETG = EngSoft.TSEngine.Geometry;
 using System.Collections;
 
 namespace Tekla_Practice

@@ -11,8 +11,6 @@ using System.Windows.Forms;
 using TSM = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
 using System.Collections;
-
-using ETG = EngSoft.TSEngine.Geometry;
 using Tekla.Structures.Model;
 
 namespace Tekla_Practice
@@ -132,7 +130,7 @@ namespace Tekla_Practice
             Double.TryParse(profileStringArray[0], out beamHeight);
             Double.TryParse(profileStringArray[1], out beamWidth);
 
-            TSG.Vector vector90 = ETG.Geometry2D.Rotate90(baseVector);
+            TSG.Vector vector90 = new TSG.Vector(-baseVector.Y, baseVector.X, baseVector.Z); //ETG.Geometry2D.Rotate90(baseVector);
             TSG.Vector vectorZ = new TSG.Vector(0, 0, 1);
 
             TSG.Point s_point = beam.StartPoint;

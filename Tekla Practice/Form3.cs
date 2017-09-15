@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 using TSM = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
-using ETG = EngSoft.TSEngine.Geometry;
 
 using System.Collections;
 
@@ -60,7 +59,7 @@ namespace Tekla_Practice
             TSG.Vector part1Vector = new TSG.Vector(part1.EndPoint - part1.StartPoint).GetNormal();
             TSG.Vector part2Vector = new TSG.Vector(part2.EndPoint - part2.StartPoint).GetNormal();
 
-            TSG.Vector check1Vector = ETG.Geometry2D.Rotate90(part1Vector) * -1;
+            TSG.Vector check1Vector = new TSG.Vector(-part1Vector.Y, part1Vector.X, part1Vector.Z) * -1;//ETG.Geometry2D.Rotate90(part1Vector) * -1;
 
             TSG.Point point = new TSG.Point();
 
@@ -112,7 +111,7 @@ namespace Tekla_Practice
             TSG.Vector part1Vector = new TSG.Vector(part1.EndPoint - part1.StartPoint).GetNormal();
             TSG.Vector part2Vector = new TSG.Vector(part2.EndPoint - part2.StartPoint).GetNormal();
 
-            TSG.Vector check1Vector = ETG.Geometry2D.Rotate90(part1Vector) * -1;
+            TSG.Vector check1Vector = new TSG.Vector(-part1Vector.Y, part1Vector.X, part1Vector.Z) * -1;//ETG.Geometry2D.Rotate90(part1Vector) * -1;
 
             TSG.Point point = new TSG.Point();
             ArrayList list = new ArrayList();

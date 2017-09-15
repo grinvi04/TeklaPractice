@@ -12,8 +12,6 @@ using TSM = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
 using System.Collections;
 
-using ETG = EngSoft.TSEngine.Geometry;
-
 namespace Tekla_Practice
 {
     public partial class Form2 : Form
@@ -43,7 +41,7 @@ namespace Tekla_Practice
             this.PickStartPoint = picker.PickPoint();
             this.PickEndPoint = picker.PickPoint();
             this.BaseVector = new TSG.Vector(this.PickEndPoint - this.PickStartPoint).GetNormal();
-            this.BaseVector90 = ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
+            this.BaseVector90 = new TSG.Vector(-this.BaseVector.Y, this.BaseVector.X, this.BaseVector.Z) * -1; //ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
 
             TSM.ContourPlate contourPlate = this.CreateContourPlate();
             this.Cut(contourPlate);

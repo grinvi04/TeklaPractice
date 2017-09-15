@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 using TSM = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
-using ETG = EngSoft.TSEngine.Geometry;
 using System.Collections;
 
 namespace Tekla_Practice
@@ -44,7 +43,7 @@ namespace Tekla_Practice
             this.PickEndPoint = picker.PickPoint();
 
             this.BaseVector = new TSG.Vector(this.PickEndPoint - this.PickStartPoint).GetNormal();
-            this.BaseVector90 = ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
+            this.BaseVector90 = new TSG.Vector(-BaseVector.Y, BaseVector.X, BaseVector.Z) * -1;//ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
 
             TSM.Beam beam = this.CreateBeam(this.PickStartPoint, this.PickEndPoint);
 
@@ -152,7 +151,7 @@ namespace Tekla_Practice
             polygon.Points.Add(point);
 
 
-            vectorX = ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
+            vectorX = new TSG.Vector(-this.BaseVector.Y, this.BaseVector.X, this.BaseVector.Z) * -1;//ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
             //distance = (e_point.Y - s_point.Y);
             point += vectorY * distance;
             polygon.Points.Add(point);
@@ -242,7 +241,7 @@ namespace Tekla_Practice
             TSG.Vector vectorY = new TSG.Vector(this.BaseVector);
             TSG.Vector vectorZ = new TSG.Vector(0, 0, 1);
 
-            vectorX = ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
+            vectorX = new TSG.Vector(-this.BaseVector.Y, this.BaseVector.X, this.BaseVector.Z) * -1;//ETG.Geometry2D.Rotate90(this.BaseVector) * -1;
 
             TSM.Polygon polygon = new TSM.Polygon();
 

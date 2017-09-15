@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 using TSM = Tekla.Structures.Model;
 using TSG = Tekla.Structures.Geometry3d;
-using ETG = EngSoft.TSEngine.Geometry;
 
 namespace Tekla_Practice
 {
