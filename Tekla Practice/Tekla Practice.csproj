@@ -95,6 +95,12 @@
     <Compile Include="cutplane.Designer.cs">
       <DependentUpon>cutplane.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisplayPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayPoint.Designer.cs">
+      <DependentUpon>DisplayPoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="drawing.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +203,9 @@
     <EmbeddedResource Include="cutplane.resx">
       <DependentUpon>cutplane.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DisplayPoint.resx">
+      <DependentUpon>DisplayPoint.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="drawing.resx">
       <DependentUpon>drawing.cs</DependentUpon>
     </EmbeddedResource>
@@ -266,12 +275,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Engsoft\trunk\EngSoft_Project\EngSoft_TSEngine\TSEngine_ver21.0\Src\Geometry\Geometry.csproj">
-      <Project>{1e99c0ca-6a39-4674-b6ac-b1c221b13a4c}</Project>
-      <Name>Geometry</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
