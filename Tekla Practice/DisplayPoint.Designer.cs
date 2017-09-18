@@ -50,7 +50,7 @@
             this.TextBoxPointOfPart.Name = "TextBoxPointOfPart";
             this.TextBoxPointOfPart.ReadOnly = true;
             this.TextBoxPointOfPart.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TextBoxPointOfPart.Size = new System.Drawing.Size(403, 371);
+            this.TextBoxPointOfPart.Size = new System.Drawing.Size(529, 371);
             this.TextBoxPointOfPart.TabIndex = 1;
             // 
             // LabelPointOfPart
@@ -64,9 +64,8 @@
             // 
             // DisplayPoint
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 461);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.ClientSize = new System.Drawing.Size(547, 461);
             this.Controls.Add(this.LabelPointOfPart);
             this.Controls.Add(this.TextBoxPointOfPart);
             this.Controls.Add(this.ButtonSelectPart);

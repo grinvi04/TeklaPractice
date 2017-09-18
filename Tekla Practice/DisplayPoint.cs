@@ -87,9 +87,10 @@ namespace Tekla_Practice
                 sb.AppendFormat("4. Vertex List");
                 sb.Append(Environment.NewLine);
 
-                foreach (var item in vertexList)
+                for (int i = 0, ii = vertexList.Count; i < ii; i++)
                 {
-                    sb.AppendFormat("vertex : {0}", item.ToString());
+                    sb.Append(' ', 5);
+                    sb.AppendFormat("{0} : {1}", i+1, vertexList[i].ToString());
                     sb.Append(Environment.NewLine);
                 }
 
@@ -116,11 +117,36 @@ namespace Tekla_Practice
                         // singleRebar은 polygon으로 포인트를 나타낸다.
                         vertexList = singleRebar.Polygon.Points.Cast<TSG.Point>().ToList();
 
-                        foreach (var item in vertexList)
+                        sb.AppendFormat("2. Points");
+                        sb.Append(Environment.NewLine);
+
+                        for (int i = 0, ii = vertexList.Count; i < ii; i++)
                         {
-                            sb.AppendFormat("Points : {0}", item.ToString());
+                            sb.Append(' ', 5);
+                            sb.AppendFormat("{0} : {1}", i + 1, vertexList[i].ToString());
                             sb.Append(Environment.NewLine);
                         }
+
+                        string onPlaneOffsets = "";
+
+                        foreach(var onPlaneOffset in singleRebar.OnPlaneOffsets)
+                        {
+                            onPlaneOffsets += onPlaneOffset + " ";
+                        }
+
+                        sb.AppendFormat("3.1 Cover thickness On Plane : {0}", onPlaneOffsets);
+                        sb.Append(Environment.NewLine);
+                        sb.AppendFormat("3.2 Cover thickness From Plane : {0}", singleRebar.FromPlaneOffset.ToString());
+                        sb.Append(Environment.NewLine);
+
+                        sb.AppendFormat("4.1 Cover thickness Start OffsetType : {0}", singleRebar.StartPointOffsetType.ToString());
+                        sb.Append(Environment.NewLine);
+                        sb.AppendFormat("4.2 Cover thickness Start OffsetValue : {0}", singleRebar.StartPointOffsetValue.ToString());
+                        sb.Append(Environment.NewLine);
+                        sb.AppendFormat("5.1 Cover thickness End OffsetType: {0}", singleRebar.EndPointOffsetType.ToString());
+                        sb.Append(Environment.NewLine);
+                        sb.AppendFormat("5.2 Cover thickness End OffsetValue: {0}", singleRebar.EndPointOffsetValue.ToString());
+                        sb.Append(Environment.NewLine);
 
                         List<TSM.RebarGeometry> rebarGeometryList = null;
                         rebarGeometryList = singleRebar.GetRebarGeometries(false).Cast<TSM.RebarGeometry>().ToList();
@@ -129,9 +155,13 @@ namespace Tekla_Practice
                         {
                             vertexList = rebarGeometry.Shape.Points.Cast<TSG.Point>().ToList();
 
-                            foreach (var item in vertexList)
+                            sb.AppendFormat("3. GeoMetry");
+                            sb.Append(Environment.NewLine);
+
+                            for (int i = 0, ii = vertexList.Count; i < ii; i++)
                             {
-                                sb.AppendFormat("GeoMetry : {0}", item.ToString());
+                                sb.Append(' ', 10);
+                                sb.AppendFormat("{0} : {1}", i + 1, vertexList[i].ToString());
                                 sb.Append(Environment.NewLine);
                             }
                         }
@@ -155,38 +185,45 @@ namespace Tekla_Practice
 
                         sb.AppendFormat("5.1 Cover thickness Start OffsetType : {0}", rebarGroup.StartPointOffsetType.ToString());
                         sb.Append(Environment.NewLine);
-                        sb.AppendFormat("5.1 Cover thickness Start OffsetValue : {0}", rebarGroup.StartPointOffsetValue.ToString());
+                        sb.AppendFormat("5.2 Cover thickness Start OffsetValue : {0}", rebarGroup.StartPointOffsetValue.ToString());
                         sb.Append(Environment.NewLine);
-                        sb.AppendFormat("5.2 Cover thickness End OffsetType: {0}", rebarGroup.EndPointOffsetType.ToString());
+                        sb.AppendFormat("6.1 Cover thickness End OffsetType: {0}", rebarGroup.EndPointOffsetType.ToString());
                         sb.Append(Environment.NewLine);
-                        sb.AppendFormat("5.2 Cover thickness End OffsetValue: {0}", rebarGroup.EndPointOffsetValue.ToString());
+                        sb.AppendFormat("6.2 Cover thickness End OffsetValue: {0}", rebarGroup.EndPointOffsetValue.ToString());
                         sb.Append(Environment.NewLine);
 
+                        polygonList = rebarGroup.Polygons.Cast<TSM.Polygon>().ToList();
 
-                        //polygonList = rebarGroup.Polygons.Cast<TSM.Polygon>().ToList();
+                        sb.AppendFormat("7. Polygons");
+                        sb.Append(Environment.NewLine);
 
-                        //foreach(var polygon in polygonList)
-                        //{
-                        //    vertexList = polygon.Points.Cast<TSG.Point>().ToList();
+                        for (int i = 0, ii = polygonList.Count; i < ii; i++)
+                        {
+                            vertexList = polygonList[i].Points.Cast<TSG.Point>().ToList();
 
-                        //    foreach (var item in vertexList)
-                        //    {
-                        //        sb.AppendFormat("Points : {0}", item.ToString());
-                        //        sb.Append(Environment.NewLine);
-                        //    }
-                        //}
+                            for (int j = 0, jj = vertexList.Count; j < jj; j++)
+                            {
+                                sb.Append(' ', 5);
+                                sb.AppendFormat("[{0}][{1}] : {2}", i + 1, j + 1, vertexList[j].ToString());
+                                sb.Append(Environment.NewLine);
+                            }
+                        }
 
                         // 철근은 offsetvalue가 적용된 RebarGeometry로 받아서 사용해야 정확한 포인트가 나온다.
                         List<TSM.RebarGeometry> rebarGeometryList = null;
                         rebarGeometryList = rebarGroup.GetRebarGeometries(false).Cast<TSM.RebarGeometry>().ToList();
 
+                        sb.AppendFormat("8. GeoMetry");
+                        sb.Append(Environment.NewLine);
+
                         foreach (var rebarGeometry in rebarGeometryList)
                         {
                             vertexList = rebarGeometry.Shape.Points.Cast<TSG.Point>().ToList();
 
-                            foreach (var item in vertexList)
+                            for (int i = 0, ii = vertexList.Count; i < ii; i++)
                             {
-                                sb.AppendFormat("GeoMetry : {0}", item.ToString());
+                                sb.Append(' ', 5);
+                                sb.AppendFormat("{0} : {1}", i + 1, vertexList[i].ToString());
                                 sb.Append(Environment.NewLine);
                             }
                         }
@@ -209,20 +246,24 @@ namespace Tekla_Practice
                 sb = new StringBuilder();
                 sb.AppendFormat("1. Name : {0}", polyBeam.Name);
                 sb.Append(Environment.NewLine);
-                
 
-                foreach (var item in pointList)
-                {
-                    sb.AppendFormat("ContourPoints : {0}", item.ToString());
-                    sb.Append(Environment.NewLine);
-                }               
-
-                sb.AppendFormat("2. Vertex List");
+                sb.AppendFormat("2. ContourPoints");
                 sb.Append(Environment.NewLine);
 
-                foreach (var item in vertexList)
+                for (int i = 0, ii = pointList.Count; i < ii; i++)
                 {
-                    sb.AppendFormat("vertex : {0}", item.ToString());
+                    sb.Append(' ', 5);
+                    sb.AppendFormat("{0} : {1}", i + 1, pointList[i].ToString());
+                    sb.Append(Environment.NewLine);
+                }
+
+                sb.AppendFormat("3. Vertex List");
+                sb.Append(Environment.NewLine);
+
+                for (int i = 0, ii = vertexList.Count; i < ii; i++)
+                {
+                    sb.Append(' ', 5);
+                    sb.AppendFormat("{0} : {1}", i + 1, vertexList[i].ToString());
                     sb.Append(Environment.NewLine);
                 }
 
@@ -242,19 +283,23 @@ namespace Tekla_Practice
                 sb.AppendFormat("1. Name : {0}", contourPlate.Name);
                 sb.Append(Environment.NewLine);
 
+                sb.AppendFormat("2. ContourPoints");
+                sb.Append(Environment.NewLine);
 
-                foreach (var item in pointList)
+                for (int i = 0, ii = pointList.Count; i < ii; i++)
                 {
-                    sb.AppendFormat("ContourPoints : {0}", item.ToString());
+                    sb.Append(' ', 5);
+                    sb.AppendFormat("{0} : {1}", i + 1, pointList[i].ToString());
                     sb.Append(Environment.NewLine);
                 }
 
-                sb.AppendFormat("2. Vertex List");
+                sb.AppendFormat("3. Vertex List");
                 sb.Append(Environment.NewLine);
 
-                foreach (var item in vertexList)
+                for (int i = 0, ii = vertexList.Count; i < ii; i++)
                 {
-                    sb.AppendFormat("vertex : {0}", item.ToString());
+                    sb.Append(' ', 5);
+                    sb.AppendFormat("{0} : {1}", i + 1, vertexList[i].ToString());
                     sb.Append(Environment.NewLine);
                 }
 
@@ -294,9 +339,7 @@ namespace Tekla_Practice
 
                     while (loopenum.MoveNext())
                     {
-                        TSS.Loop loop = loopenum.Current as TSS.Loop;
-
-                        if (null != loop)
+                        if (loopenum.Current is TSS.Loop loop)
                         {
                             // 꼭지점 정보 가져오기
                             TSS.VertexEnumerator vertexenum = loop.GetVertexEnumerator();
