@@ -57,15 +57,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayPoint.cs">
+    <Compile Include="Common\common.cs" />
+    <Compile Include="Test\UtilTest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DisplayPoint.Designer.cs">
+    <Compile Include="Test\UtilTest.Designer.cs">
+      <DependentUpon>UtilTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util\DisplayPoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Util\DisplayPoint.Designer.cs">
       <DependentUpon>DisplayPoint.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DisplayPoint.resx">
+    <EmbeddedResource Include="Test\UtilTest.resx">
+      <DependentUpon>UtilTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Util\DisplayPoint.resx">
       <DependentUpon>DisplayPoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -90,5 +100,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

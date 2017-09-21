@@ -1,19 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using TSM = Tekla.Structures.Model;
+using TC = TeklaCommon.Common.Common;
 using TSG = Tekla.Structures.Geometry3d;
-using TSS = Tekla.Structures.Solid;
-using System.Collections;
+using TSM = Tekla.Structures.Model;
 
-namespace Tekla_Practice
+namespace TeklaCommon
 {
     /// <summary>
     /// 선택한 부재의 startPoint, endPoint, 부재의 각 solid에 대한 vertex Point를 표시
@@ -82,7 +78,7 @@ namespace Tekla_Practice
                 endPoint = beam.EndPoint;
 
                 // beam의 꼭지점 가져오기
-                vertexList = this.GetVertexList(beam);
+                vertexList = TC.GetVertexList(beam);
 
                 // 결과 텍스트 작성
                 sb = new StringBuilder();
@@ -142,7 +138,7 @@ namespace Tekla_Practice
                 ArrayList pointList = polyBeam.Contour.ContourPoints;
                 
                 // polybeam의 꼭지점 가져오기
-                vertexList = this.GetVertexList(polyBeam);
+                vertexList = TC.GetVertexList(polyBeam);
 
                 // 결과 텍스트 작성
                 sb = new StringBuilder();
@@ -181,7 +177,7 @@ namespace Tekla_Practice
                 ArrayList pointList = contourPlate.Contour.ContourPoints;
 
                 // polybeam의 꼭지점 가져오기
-                vertexList = this.GetVertexList(contourPlate);
+                vertexList = TC.GetVertexList(contourPlate);
 
                 // 결과 텍스트 작성
                 sb = new StringBuilder();
@@ -215,69 +211,7 @@ namespace Tekla_Practice
             }
         }
 
-        /// <summary>
-        /// 부재의 vertex list를 찾아서 return한다.
-        /// Part Class(Beam, PolyBeam, ContourPlate Class만 처리한다)
-        /// </summary>
-        /// <param name="part"></param>
-        /// <returns></returns>
-        private List<TSG.Point> GetVertexList(TSM.Part part)
-        {
-            List<TSG.Point> faceList = new List<TSG.Point>();
-            List<TSG.Point> vertexList = new List<TSG.Point>();
-            List<TSG.Point> list = new List<TSG.Point>();
-
-            // 부재의 좌표정보 가져오기
-            TSM.Solid solid = part.GetSolid();
-
-            TSS.FaceEnumerator faceenum = solid.GetFaceEnumerator();
-
-            while (faceenum.MoveNext())
-            {
-                // 면 정보 추출
-                TSS.Face face = faceenum.Current as TSS.Face;
-
-                if (null != face)
-                {
-                    faceList.Add(face.Normal);
-                    TSS.LoopEnumerator loopenum = face.GetLoopEnumerator();
-
-                    while (loopenum.MoveNext())
-                    {
-                        if (loopenum.Current is TSS.Loop loop)
-                        {
-                            // 꼭지점 정보 가져오기
-                            TSS.VertexEnumerator vertexenum = loop.GetVertexEnumerator();
-                            while (vertexenum.MoveNext())
-                            {
-                                TSG.Point vertex = vertexenum.Current;
-                                if (null != vertex)
-                                {
-                                    vertexList.Add(vertex);
-                                }
-                            }
-
-                        }
-                    }
-                }
-            }
-
-            // 중복제거
-            IEnumerable<TSG.Point> distinctVertex = vertexList.Distinct();
-            // list clear
-            list.Clear();
-
-            // 중복제거한 포인트를 list에 추가
-            foreach (var vertex in distinctVertex)
-            {
-                list.Add(vertex);
-            }
-
-            // list 정렬
-            list.Sort();
-
-            return list;
-        }
+        
 
         /// <summary>
         /// 부재의 BooleanPart가 있는지 확인하고 정보를 조회한다.
@@ -393,8 +327,7 @@ namespace Tekla_Practice
                         sb.Append(Environment.NewLine);
                     }
 
-
-                    vertexList = this.GetVertexList(operativePart);
+                    vertexList = TC.GetVertexList(operativePart);
 
                     for (int i = 0, ii = vertexList.Count; i < ii; i++)
                     {

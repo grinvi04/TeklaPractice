@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tekla_Practice;
+using TeklaCommon.Test;
 
 namespace TeklaCommon
 {
@@ -17,7 +17,8 @@ namespace TeklaCommon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DisplayPoint());
+            Application.Run(new UtilTest());
+            //Application.Run(new DisplayPoint());
         }
     }
 }

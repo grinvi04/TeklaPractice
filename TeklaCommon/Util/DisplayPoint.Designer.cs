@@ -1,4 +1,4 @@
-﻿namespace Tekla_Practice
+﻿namespace TeklaCommon
 {
     partial class DisplayPoint
     {

@@ -17,20 +17,21 @@ namespace Tekla_Practice
 {
     public partial class Form1 : Form
     {
+        private TSM.Model model;
         public Form1()
         {
             InitializeComponent();
+
+            model = new TSM.Model();
+
+            if (model.GetConnectionStatus() == false)
+            {
+                return;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TSM.Model model = new TSM.Model();
-
-            if(model.GetConnectionStatus()== false)
-            {
-                return;
-            }
-
             //TSM.Beam beam = this.CreateBeam();
             TSM.ContourPlate plate = this.CreateContourPlate();
 
@@ -368,6 +369,26 @@ namespace Tekla_Practice
                 }
                 
             }
+        }
+
+        private void CreateBrep()
+        {
+            TSG.Point point = new TSG.Point(0, 0, 0);
+            TSG.Point point2 = new TSG.Point(1000, 0, 0);
+
+            Brep brep = new Brep();
+            brep.StartPoint = point;
+            brep.EndPoint = point2;
+            brep.Profile = new Profile { ProfileString = "Default" };
+            bool result = brep.Insert();
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.CreateBrep();
+
+            this.model.CommitChanges();
         }
     }
 }
