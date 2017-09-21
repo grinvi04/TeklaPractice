@@ -85,7 +85,27 @@ namespace TeklaCommon.Common
             return list;
         }
 
-        
+        public static bool IsClashCheck(TSM.Model model, TSM.Part part1, TSM.Part part2, out ArrayList intersectionList)
+        {
+            bool isClash = false;
+            TSM.ClashCheckHandler clashCheckHandler = model.GetClashCheckHandler();
+
+            // 선택한 부재들을 비교해서 간섭되었는지 체크
+            intersectionList = clashCheckHandler.GetIntersectionBoundingBoxes(part1.Identifier, part2.Identifier);
+            
+            // count가 0이면 간섭되지 않음
+            if (null == intersectionList || intersectionList.Count < 1)
+            {
+                isClash = false;
+            } else
+            {
+                isClash = true;
+            }
+
+            return isClash;
+        }
+
+
         /// <summary>
         /// 주어진 각도와 회전할 축을 기준으로 반시계방향으로 vector를 회전시킨다.
         /// </summary>
@@ -152,7 +172,7 @@ namespace TeklaCommon.Common
                 obb = new TSG.OBB(centerPoint, coordinateSystem.AxisX, coordinateSystem.AxisY, coordinateSystem.AxisX.Cross(coordinateSystem.AxisY), extent0, extent1, extent2);
 
                 // beam의 꼭지점 list를 가져온다.
-                // TSG.Point[] list = obb.ComputeVertices();
+                //TSG.Point[] list = obb.ComputeVertices();
             }
 
             return obb;
@@ -171,6 +191,26 @@ namespace TeklaCommon.Common
             double z = min.Z + ((max.Z - min.Z) / 2);
 
             return new TSG.Point(x, y, z);
+        }
+
+        public static TSM.Beam CreateBeam(TSG.Point startPoint, TSG.Point endPoint, TSM.Position.PlaneEnum plane = TSM.Position.PlaneEnum.MIDDLE, double height = 600.0, double width = 600.0)
+        {            
+            TSM.Beam beam = new TSM.Beam();
+
+            beam.Name = "beam";
+            beam.StartPoint = startPoint;
+            beam.EndPoint = endPoint;
+
+            beam.Class = "6";
+            beam.Material.MaterialString = "C24";
+
+            beam.Position.Depth = TSM.Position.DepthEnum.FRONT;
+            beam.Position.Plane = plane;
+            beam.Position.Rotation = TSM.Position.RotationEnum.TOP;
+            beam.Profile.ProfileString = height + "X" + width;
+            bool isInsert = beam.Insert();
+
+            return beam;
         }
     }
 }
