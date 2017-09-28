@@ -35,20 +35,21 @@ namespace TeklaCommon.Test
 
             try
             {
-                //TSM.ModelObject modelObject = picker.PickObject(TSM.UI.Picker.PickObjectEnum.PICK_ONE_PART, "1개의 부재를 선택하세요");                
+                TSM.ModelObject modelObject = picker.PickObject(TSM.UI.Picker.PickObjectEnum.PICK_ONE_PART, "1개의 부재를 선택하세요");
 
-                //if (null != modelObject)
-                //{
-                //    RotateVector();
-                //}
-                //else
-                //{
-                //    MessageBox.Show("부재가 선택되지 않았습니다.\r\n부재를 선택해주세요.");
-                //    return;
-                //}
+                if (null != modelObject)
+                {
+                    RotateVector();
+                }
+                else
+                {
+                    MessageBox.Show("부재가 선택되지 않았습니다.\r\n부재를 선택해주세요.");
+                    return;
+                }
 
+                /*
                 #region 두 부재(빔)간의 간섭을 체크하고 해당 영역을 BooleanPart을 사용한 부재절단으로 절단한다.
-                TSM.ModelObjectEnumerator modelObjectEnumerator = picker.PickObjects(TSM.UI.Picker.PickObjectsEnum.PICK_N_PARTS, "부재를 1개 이상 선택하세요.");
+                TSM.ModelObjectEnumerator modelObjectEnumerator = picker.PickObjects(TSM.UI.Picker.PickObjectsEnum.PICK_N_PARTS, "부재를 2개 선택하세요.");
 
                 
 
@@ -68,7 +69,7 @@ namespace TeklaCommon.Test
 
                         if(partList.Count != 2)
                         {
-                            MessageBox.Show("");
+                            MessageBox.Show("두 개의 부재를 선택하세요.");
                             return;
                         }
                         
@@ -149,6 +150,7 @@ namespace TeklaCommon.Test
                 }
 
                 #endregion
+                */
 
             }
             catch (Exception ex)

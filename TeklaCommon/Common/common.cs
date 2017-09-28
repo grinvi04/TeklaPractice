@@ -24,6 +24,7 @@ namespace TeklaCommon.Common
         public static List<TSG.Point> GetVertexList(TSM.Part part)
         {
             List<TSG.Point> list = new List<TSG.Point>();
+            List<TSG.Point> resultList = new List<TSG.Point>();
             List<TSG.Point> faceList = new List<TSG.Point>();
             List<TSG.Point> vertexList = new List<TSG.Point>();
 
@@ -70,8 +71,6 @@ namespace TeklaCommon.Common
 
             // 중복제거
             IEnumerable<TSG.Point> distinctVertex = vertexList.Distinct();
-            // list clear
-            list.Clear();
 
             // 중복제거한 포인트를 list에 추가
             foreach (var vertex in distinctVertex)
@@ -80,9 +79,9 @@ namespace TeklaCommon.Common
             }
 
             // list 정렬
-            list.Sort();
+            resultList = list.OrderBy(item => item.X).ThenBy(item => item.Y).ThenBy(item => item.Z).ToList();
 
-            return list;
+            return resultList;
         }
 
         public static bool IsClashCheck(TSM.Model model, TSM.Part part1, TSM.Part part2, out ArrayList intersectionList)
@@ -107,7 +106,7 @@ namespace TeklaCommon.Common
 
 
         /// <summary>
-        /// 주어진 각도와 회전할 축을 기준으로 반시계방향으로 vector를 회전시킨다.
+        /// 주어진 각도와 회전할 축을 기준으로 축방향의 시계방향으로 vector를 회전시킨다.
         /// </summary>
         /// <param name="vector"></param>
         /// <param name="degree"></param>
@@ -119,7 +118,7 @@ namespace TeklaCommon.Common
         {
             // 단위는 라디안이며 90은 회전할 각도
             double angle = (Math.PI / 180.0) * degree;
-            // 벡터 파라미터는 회전축에 해당하는 벡터에 1을 입력하면 축방향을 기준으로 반시계방향으로 회전.
+            // 벡터 파라미터는 회전축에 해당하는 벡터에 1을 입력하면 축방향을 기준으로 시계방향으로 회전.
             // 아래는 z축을 기준으로 반시계 방향으로 회전하는 즉 X,Y만 바뀐다.
             TSG.Matrix rotateMatrix = TSG.MatrixFactory.Rotate(angle, new TSG.Vector(axisX, axisY, axisZ));
 
@@ -170,9 +169,6 @@ namespace TeklaCommon.Common
 
                 workPlaneHandler.SetCurrentTransformationPlane(transformationPlane);
                 obb = new TSG.OBB(centerPoint, coordinateSystem.AxisX, coordinateSystem.AxisY, coordinateSystem.AxisX.Cross(coordinateSystem.AxisY), extent0, extent1, extent2);
-
-                // beam의 꼭지점 list를 가져온다.
-                //TSG.Point[] list = obb.ComputeVertices();
             }
 
             return obb;
