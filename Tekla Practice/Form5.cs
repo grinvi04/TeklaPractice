@@ -208,8 +208,23 @@ namespace Tekla_Practice
             //rebarGroup.Spacings.Add(200.0);
             //rebarGroup.Spacings.Add(200.0);
 
-            rebarGroup.SpacingType = TSM.BaseRebarGroup.RebarGroupSpacingTypeEnum.SPACING_TYPE_TARGET_SPACE;
-            rebarGroup.Spacings.Add(200.0);
+            rebarGroup.SpacingType = TSM.BaseRebarGroup.RebarGroupSpacingTypeEnum.SPACING_TYPE_EXACT_SPACINGS;
+            double space = 0.0;
+            Double.TryParse(beam.Profile.ProfileString.Split('X')[1].ToString(), out space);
+
+            int count = 0;
+            count = (int)space / 200;
+            double left = 0;
+            left = (int)space % 200;
+            if (left > 0) count++;
+
+            ArrayList distanceList = new ArrayList();
+            for (int i = 0; i < count; i++)
+            {
+                distanceList.Add(200.00);
+            }
+
+            rebarGroup.Spacings.AddRange(distanceList);
 
             rebarGroup.StartHook.Shape = TSM.RebarHookData.RebarHookShapeEnum.NO_HOOK;
             rebarGroup.EndHook.Shape = TSM.RebarHookData.RebarHookShapeEnum.NO_HOOK;
@@ -341,16 +356,27 @@ namespace Tekla_Practice
                 }
             }
 
-            if (rebarGroup.Spacings.Count - 2 <= intersectCount)
-            {
-                //rebarGroup.Delete();
-                return;
-            }
+            //if (rebarGroup.Spacings.Count - 2 <= intersectCount)
+            //{
+            //    rebarGroup.Delete();
+            //    return;
+            //}
 
-            for (int index = 0; index < intersectCount; index++)
-            {
-                rebarGroup.Spacings.RemoveAt(rebarGroup.Spacings.Count - 1);
-            }
+            //for (int index = 0; index < intersectCount; index++)
+            //{
+            //    rebarGroup.Spacings.RemoveAt(rebarGroup.Spacings.Count - 1);
+            //}
+
+
+            int left = rebarGroup.Spacings.Count - intersectCount + 1;
+
+            rebarGroup.Spacings.Clear();
+            rebarGroup.Spacings.Add(200);
+            rebarGroup.Spacings.Add(left*200);
+            rebarGroup.Spacings.Add(200);
+
+
+
             rebarGroup.Modify();
 
 

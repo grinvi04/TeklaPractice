@@ -32,10 +32,11 @@ namespace Tekla_Practice
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //TSM.Beam beam = this.CreateBeam();
             TSM.ContourPlate plate = this.CreateContourPlate();
 
-            //this.CreateSingleRebar(beam, plate);
+            //TSM.Beam beam = this.CreateBeam();
+
+            //this.CreateSingleRebar(beam);
             //this.CreatePolyBeam();
 
             //TSM.Beam beam2 = this.CreateBeamRebarGroup();
@@ -45,7 +46,7 @@ namespace Tekla_Practice
             model.CommitChanges();
         }
 
-        private void CreateSingleRebar(TSM.Beam beam, TSM.ContourPlate plate)
+        private void CreateSingleRebar(TSM.Beam beam)
         {
             TSM.SingleRebar rebar = new TSM.SingleRebar();
             rebar.Class = 2;      
@@ -89,16 +90,34 @@ namespace Tekla_Practice
             return column;
         }
 
-        private void CreateRebarGroup(TSM.Beam beam)
+        private void CreateRebarGroup(TSM.Part part)
         {
+            TSG.Point startPoint = new TSG.Point();
+            TSG.Point endPoint = new TSG.Point();
+
+            if (part is TSM.Beam)
+            {
+                TSM.Beam beam = part as TSM.Beam;
+                startPoint = beam.StartPoint;
+                endPoint = beam.EndPoint;
+            }
+
+            if (part is TSM.ContourPlate)
+            {
+                TSM.ContourPlate contourPlate = part as TSM.ContourPlate;
+                startPoint = contourPlate.Contour.ContourPoints[0] as TSG.Point;
+                endPoint = contourPlate.Contour.ContourPoints[contourPlate.Contour.ContourPoints.Count - 1] as TSG.Point;
+            }
+
+
             TSM.RebarGroup rebarGroup = new TSM.RebarGroup();
 
             rebarGroup.Name = "rebarGroup";
             rebarGroup.NumberingSeries.Prefix = "S";
             rebarGroup.NumberingSeries.StartNumber = 1;
             //요기
-            rebarGroup.StartPoint = beam.StartPoint;
-            rebarGroup.EndPoint = beam.EndPoint;
+            rebarGroup.StartPoint = startPoint;
+            rebarGroup.EndPoint = endPoint;
             rebarGroup.Class = 3;
             rebarGroup.Size = "19";
             rebarGroup.RadiusValues.Add(60.0);
@@ -116,15 +135,15 @@ namespace Tekla_Practice
             rebarGroup.StartPointOffsetValue = 40.0;
             rebarGroup.EndPointOffsetValue = 40.0;
 
-            rebarGroup.Father = beam;
+            rebarGroup.Father = part;
 
             rebarGroup.FromPlaneOffset = 40.0;
             rebarGroup.ExcludeType = BaseRebarGroup.ExcludeTypeEnum.EXCLUDE_TYPE_NONE;
 
 
-            TSG.Vector baseVector = new TSG.Vector(beam.EndPoint - beam.StartPoint).GetNormal();
+            TSG.Vector baseVector = new TSG.Vector(endPoint - startPoint).GetNormal();
 
-            String[] profileStringArray = beam.Profile.ProfileString.Split('X');
+            String[] profileStringArray = part.Profile.ProfileString.Split('X');
 
             double beamHeight, beamWidth;
 
@@ -134,8 +153,8 @@ namespace Tekla_Practice
             TSG.Vector vector90 = new TSG.Vector(-baseVector.Y, baseVector.X, baseVector.Z); //ETG.Geometry2D.Rotate90(baseVector);
             TSG.Vector vectorZ = new TSG.Vector(0, 0, 1);
 
-            TSG.Point s_point = beam.StartPoint;
-            TSG.Point e_point = beam.EndPoint;
+            TSG.Point s_point = startPoint;
+            TSG.Point e_point = endPoint;
 
             TSM.Polygon polygon = new TSM.Polygon();
 

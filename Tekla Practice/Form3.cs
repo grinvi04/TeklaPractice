@@ -34,6 +34,8 @@ namespace Tekla_Practice
 
             if (!model.GetConnectionStatus()) return;
 
+            label2.Text = "";
+
             TSM.UI.Picker picker = new TSM.UI.Picker();
             //this.PickStartPoint = picker.PickPoint();
             //this.PickEndPoint = picker.PickPoint();
@@ -98,7 +100,7 @@ namespace Tekla_Practice
             //{
 
             //}
-            return null;        
+            return null;
         }
 
         private string GetSolidIntersect(TSM.Beam part1, TSM.Beam part2)
@@ -119,7 +121,7 @@ namespace Tekla_Practice
             point += part1.StartPoint + (check1Vector * -20000);
             list = solid.Intersect(part1.StartPoint, point);
 
-            if(list.Count > 0)
+            if (list.Count > 0)
             {
                 return "왼쪽";
 
@@ -133,7 +135,7 @@ namespace Tekla_Practice
                 point += part1.StartPoint + (check1Vector * -20000);
                 list = solid.Intersect(part1.StartPoint, point);
 
-                if(list.Count > 0)
+                if (list.Count > 0)
                 {
                     return "오른쪽";
                 }
@@ -171,7 +173,7 @@ namespace Tekla_Practice
         {
             TSM.RebarGroup rebar = new TSM.RebarGroup();
 
-            ArrayList array = rebar.GetRebarGeometries(false)
-;        }
+            ArrayList array = rebar.GetRebarGeometries(false);
+        }
     }
 }
