@@ -84,15 +84,10 @@ namespace Tekla_Practice
             TSG.Point x = new TSG.Point(beam.StartPoint + (rotate * length));
 
             TSG.Point ep = new TSG.Point(x);
-            
-
-
 
             CreateBeam(sp, ep);
 
-
             model.CommitChanges();
-
         }
 
         private TSM.Beam CreateBeam(TSG.Point startPoint, TSG.Point endPoint)

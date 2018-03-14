@@ -16,7 +16,7 @@ namespace Tekla_Practice
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new matrix());
+            Application.Run(new Form2());
         }
     }
 }
