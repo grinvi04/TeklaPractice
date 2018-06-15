@@ -237,7 +237,7 @@ namespace TeklaCommon.Common
             return new TSG.Point(x, y, z);
         }
 
-        
+
         /// <summary>
         /// Beam 생성
         /// </summary>
@@ -248,8 +248,8 @@ namespace TeklaCommon.Common
         /// <param name="width">폭</param>
         /// <param name="startPoint">시작점</param>
         /// <param name="endPoint">끝점</param>
-        /// <param name="partStartNumber">시작넘버</param>
-        /// <param name="partPrefix">접두사</param>
+        /// <param name="assemblyStartNumber">시작넘버</param>
+        /// <param name="assemblyPrefix">접두사</param>
         /// <param name="positionDepth">위치 - 깊이</param>
         /// <param name="positionDepthOffset">위치 - 깊이 오프셋</param>
         /// <param name="positionPlane">위치 - 평면</param>
