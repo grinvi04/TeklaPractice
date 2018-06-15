@@ -291,10 +291,8 @@ namespace TeklaCommon.Common
         }
 
         public static TSM.ContourPlate CreateContourPlate(string name, string color, string material, double length,
-            ArrayList contourPoints, int assemblyStartNumber = 1, string assemblyPrefix = "S",
-            TSM.Position.DepthEnum positionDepth = TSM.Position.DepthEnum.MIDDLE, double positionDepthOffset = 0.0,
-            TSM.Position.PlaneEnum positionPlane = TSM.Position.PlaneEnum.MIDDLE, double positionPlaneOffset = 0.0,
-            TSM.Position.RotationEnum positionRotation = TSM.Position.RotationEnum.FRONT, double positionRotationOffset = 0.0)
+            List<TSM.ContourPoint> contourPoints, int assemblyStartNumber = 1, string assemblyPrefix = "S",
+            TSM.Position.DepthEnum positionDepth = TSM.Position.DepthEnum.FRONT, double positionDepthOffset = 0.0)
         {
             TSM.ContourPlate contourPlate = new TSM.ContourPlate();
 
@@ -303,7 +301,11 @@ namespace TeklaCommon.Common
             contourPlate.Material.MaterialString = material;
             contourPlate.Profile.ProfileString = string.Format("{0}", length);
 
-            contourPlate.Contour.ContourPoints = contourPoints;
+
+            foreach(TSM.ContourPoint contourPoint in contourPoints)
+            {
+                contourPlate.AddContourPoint(contourPoint);
+            }
 
             contourPlate.AssemblyNumber.StartNumber = assemblyStartNumber;
             contourPlate.AssemblyNumber.Prefix = assemblyPrefix;
@@ -311,10 +313,12 @@ namespace TeklaCommon.Common
 
             contourPlate.Position.Depth = positionDepth;
             contourPlate.Position.DepthOffset = positionDepthOffset;
-            contourPlate.Position.Plane = positionPlane;
-            contourPlate.Position.PlaneOffset = positionPlaneOffset;
-            contourPlate.Position.Rotation = positionRotation;
-            contourPlate.Position.RotationOffset = positionRotationOffset;
+            //contourPlate.Position.Plane = positionPlane;
+            //contourPlate.Position.PlaneOffset = positionPlaneOffset;
+            //contourPlate.Position.Rotation = positionRotation;
+            //contourPlate.Position.RotationOffset = positionRotationOffset;
+
+            bool isInsert = contourPlate.Insert();
 
             return contourPlate;
         }

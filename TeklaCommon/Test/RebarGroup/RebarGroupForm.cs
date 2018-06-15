@@ -255,6 +255,29 @@ namespace TeklaCommon.Test
             }
             
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<TSM.ContourPoint> contourPoints = new List<TSM.ContourPoint>();
+
+                contourPoints.Add(new TSM.ContourPoint(new TSG.Point(0, 0, 0), null));
+                contourPoints.Add(new TSM.ContourPoint(new TSG.Point(3000, 0, 0), null));
+                contourPoints.Add(new TSM.ContourPoint(new TSG.Point(3000, 4000, 0), null));
+                contourPoints.Add(new TSM.ContourPoint(new TSG.Point(0, 4000, 0), null));
+
+                TSM.ContourPlate contourPlate = TC.Common.CreateContourPlate("slab", "3", "C40", 400, contourPoints);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                _Model.CommitChanges();
+            }
+        }
     }
 }
 
