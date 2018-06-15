@@ -290,7 +290,11 @@ namespace TeklaCommon.Common
             return beam;
         }
 
-        public static TSM.ContourPlate CreateContourPlate(string name, string color, string material, double length)
+        public static TSM.ContourPlate CreateContourPlate(string name, string color, string material, double length,
+            ArrayList contourPoints, int assemblyStartNumber = 1, string assemblyPrefix = "S",
+            TSM.Position.DepthEnum positionDepth = TSM.Position.DepthEnum.MIDDLE, double positionDepthOffset = 0.0,
+            TSM.Position.PlaneEnum positionPlane = TSM.Position.PlaneEnum.MIDDLE, double positionPlaneOffset = 0.0,
+            TSM.Position.RotationEnum positionRotation = TSM.Position.RotationEnum.FRONT, double positionRotationOffset = 0.0)
         {
             TSM.ContourPlate contourPlate = new TSM.ContourPlate();
 
@@ -298,6 +302,21 @@ namespace TeklaCommon.Common
             contourPlate.Class = color;
             contourPlate.Material.MaterialString = material;
             contourPlate.Profile.ProfileString = string.Format("{0}", length);
+
+            contourPlate.Contour.ContourPoints = contourPoints;
+
+            contourPlate.AssemblyNumber.StartNumber = assemblyStartNumber;
+            contourPlate.AssemblyNumber.Prefix = assemblyPrefix;
+            contourPlate.CastUnitType = TSM.Part.CastUnitTypeEnum.PRECAST;
+
+            contourPlate.Position.Depth = positionDepth;
+            contourPlate.Position.DepthOffset = positionDepthOffset;
+            contourPlate.Position.Plane = positionPlane;
+            contourPlate.Position.PlaneOffset = positionPlaneOffset;
+            contourPlate.Position.Rotation = positionRotation;
+            contourPlate.Position.RotationOffset = positionRotationOffset;
+
+            return contourPlate;
         }
 
         /// <summary>
