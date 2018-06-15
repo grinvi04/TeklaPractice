@@ -176,5 +176,34 @@ namespace TeklaCommon.Test
             System.Console.WriteLine("vectorAxisY : {0}", vectorAxisY);
             System.Console.WriteLine("vectorAxisZ : {0}", vectorAxisZ);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            picker = new TSM.UI.Picker();
+
+            try
+            {
+                TSM.ModelObject modelObject = picker.PickObject(TSM.UI.Picker.PickObjectEnum.PICK_ONE_PART, "1개의 부재를 선택하세요");
+
+                if (null != modelObject)
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("부재가 선택되지 않았습니다.\r\n부재를 선택해주세요.");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                // model 반영
+                model.CommitChanges("수정되었습니다");
+            }
+        }
     }
 }

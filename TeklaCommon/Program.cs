@@ -18,7 +18,8 @@ namespace TeklaCommon
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new UtilTest());
-            Application.Run(new DisplayPoint());
+            //Application.Run(new DisplayPoint());
+            Application.Run(new RebarGroupForm());
         }
     }
 }
