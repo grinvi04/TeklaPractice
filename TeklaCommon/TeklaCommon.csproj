@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TeklaCommon.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\TeklaCommon.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +48,12 @@
     <Reference Include="Tekla.Common.Geometry, Version=4.5.3.0, Culture=neutral, PublicKeyToken=93c0f7e4f1ca9619, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Engsoft\trunk\Dll\TeklaStructures\2017i\Tekla.Common.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Tekla.Common.Geometry.Algorithms">
+      <HintPath>..\..\..\Engsoft\trunk\Dll\TeklaStructures\2017i\Tekla.Common.Geometry.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="Tekla.Common.Geometry.Topology">
+      <HintPath>..\..\..\Engsoft\trunk\Dll\TeklaStructures\2017i\Tekla.Common.Geometry.Topology.dll</HintPath>
     </Reference>
     <Reference Include="Tekla.Structures, Version=2017.1.0.0, Culture=neutral, PublicKeyToken=2f04dbe497b71114, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -77,7 +85,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\common.cs" />
+    <Compile Include="Test\ExamUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test\ExamUI.Designer.cs">
+      <DependentUpon>ExamUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Test\RebarGroup\RebarGroup.cs" />
     <Compile Include="Test\RebarGroup\RebarGroupForm.cs">
       <SubType>Form</SubType>
@@ -100,6 +113,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="YWBoolean.cs" />
+    <Compile Include="YWCommon.cs" />
+    <Compile Include="YWControlObject.cs" />
+    <Compile Include="YWPart.cs" />
+    <Compile Include="YWReinforcement.cs" />
+    <EmbeddedResource Include="Test\ExamUI.resx">
+      <DependentUpon>ExamUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Test\RebarGroup\RebarGroupForm.resx">
       <DependentUpon>RebarGroupForm.cs</DependentUpon>
     </EmbeddedResource>

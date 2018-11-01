@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using TC = TeklaCommon.Common.Common;
+using TC = TeklaCommon.YWCommon;
 using TSG = Tekla.Structures.Geometry3d;
 using TSM = Tekla.Structures.Model;
 
